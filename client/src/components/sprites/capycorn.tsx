@@ -1,6 +1,6 @@
 import { AnimatedSprite, useTick } from "@pixi/react"
 
-import Frames from "../img/Frames"
+import Frames from "../Animation/Frames"
 import { useState } from "react"
 // import { type coord } from './Bunny'
 

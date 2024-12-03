@@ -1,5 +1,5 @@
 import { AnimatedSprite } from "@pixi/react"
-import {Capycorn_Idle} from "../img/Animations"
+import {Capycorn_Idle} from "../Animation/Animations"
 
 export type dimensions = { x: number; y: number; s: number }
 
