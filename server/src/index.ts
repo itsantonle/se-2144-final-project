@@ -2,7 +2,6 @@ import dotenv from "dotenv"
 dotenv.config()
 import express from "express"
 import cors from "cors"
-import ObjectRouter from "./routes/objectRoute"
 import UsersRouter from "./routes/usersRoute"
 import PetsRoute from "./routes/petsRoute"
 import MoodRoute from "./routes/moodRoute"
@@ -18,12 +17,11 @@ app.use(cors())
 app.use(express.json())
 
 // routes
-app.use("/baseURL", ObjectRouter)
 app.use("/users", UsersRouter)
 app.use("/pets", PetsRoute)
 app.use("/moods", MoodRoute)
 app.use("/food", FoodRouter)
-app.use("/user/penalties", PenaltyRouter)
+app.use("/penalty", PenaltyRouter)
 
 // middleware
 app.use(notFoundMiddleware)

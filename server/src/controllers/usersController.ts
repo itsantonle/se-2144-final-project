@@ -2,8 +2,12 @@ import { Request, Response } from "express"
 import pool from "../db/connect"
 import { StatusCodes } from "http-status-codes"
 import hashPassword from "../utils/hashPassword"
-import { sendError } from "../utils/errorHandling"
-import { sendNotFoundError } from "../utils/errorHandling"
+import {
+  internalErrorResponse,
+  successPostResponse,
+  successResponse,
+  unsucessfulPostResponse,
+} from "../utils/errorHandling"
 
 export const getAllUsers = async (
   req: Request,
@@ -11,20 +15,12 @@ export const getAllUsers = async (
 ): Promise<void> => {
   try {
     const response = await pool.query("SELECT * FROM player")
-    if (response.rows.length === 0) {
-      sendNotFoundError(res, "No users found")
-    }
-
-    res
-      .status(StatusCodes.OK)
-      .json({ data: response.rows, success: true })
+    res.status(StatusCodes.OK).json(successResponse(response.rows))
   } catch (error) {
     console.error(error)
-    sendError(
-      res,
-      StatusCodes.INTERNAL_SERVER_ERROR,
-      "An error occurred while retrieving users",
-    )
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(internalErrorResponse())
   }
 }
 export const getOneUser = async (
@@ -37,19 +33,13 @@ export const getOneUser = async (
       "SELECT * FROM player WHERE player_uuid = $1",
       [id],
     )
-    if (response.rows.length === 0) {
-      sendNotFoundError(res, "User not found")
-    }
-    res
-      .status(StatusCodes.OK)
-      .json({ data: response.rows, success: true })
+
+    res.status(StatusCodes.OK).json(successResponse(response.rows[0]))
   } catch (error) {
     console.error(error)
-    sendError(
-      res,
-      StatusCodes.INTERNAL_SERVER_ERROR,
-      "An error occurred while retrieving the user",
-    )
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(internalErrorResponse())
   }
 }
 export const createUser = async (
@@ -63,13 +53,13 @@ export const createUser = async (
       [player_uuid, player_username, player_email],
     )
 
-    res.status(StatusCodes.CREATED).json({ success: true })
+    res
+      .status(StatusCodes.CREATED)
+      .json(successPostResponse(response.rows))
   } catch (error) {
     console.error(error)
-    sendError(
-      res,
-      StatusCodes.INTERNAL_SERVER_ERROR,
-      "An error occurred while creating the user",
-    )
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(unsucessfulPostResponse())
   }
 }

@@ -1,7 +1,15 @@
 import { Request, Response } from "express"
 import pool from "../db/connect"
 import { StatusCodes } from "http-status-codes"
-import { sendNotFoundError } from "../utils/errorHandling"
+import {
+  internalErrorResponse,
+  successResponse,
+  successUpdateResponse,
+  sucessfulDeleteResponse,
+  unsucessfulDeleteResponse,
+  unsucessfulPostResponse,
+  unsucessfulUpdateResponse,
+} from "../utils/errorHandling"
 
 export const getPets = async (
   req: Request,
@@ -13,15 +21,12 @@ export const getPets = async (
       "SELECT * FROM pet WHERE player_uuid = $1",
       [player_uuid],
     )
-    if (response.rows.length === 0) {
-      return sendNotFoundError(res, "Pets not found")
-    }
-
-    res
-      .status(StatusCodes.OK)
-      .json({ data: response.rows, success: true })
+    res.status(StatusCodes.OK).json(successResponse(response.rows))
   } catch (error) {
-    console.log(error)
+    console.error(error)
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(internalErrorResponse())
   }
 }
 
@@ -68,9 +73,14 @@ export const createPet = async (
         mood_id,
       ],
     )
-    res.status(StatusCodes.CREATED).json({ success: true })
+    res
+      .status(StatusCodes.CREATED)
+      .json(successResponse(response.rows))
   } catch (error) {
-    console.log(error)
+    console.error(error)
+    res
+      .status(StatusCodes.BAD_REQUEST)
+      .json(unsucessfulPostResponse())
   }
 }
 
@@ -92,9 +102,12 @@ export const updatePetName = async (
     )
     res
       .status(StatusCodes.OK)
-      .json({ data: response.rows, success: true })
+      .json(successUpdateResponse(response.rows))
   } catch (error) {
-    console.log(error)
+    console.error(error)
+    res
+      .status(StatusCodes.BAD_REQUEST)
+      .json(unsucessfulUpdateResponse())
   }
 }
 
@@ -116,9 +129,12 @@ export const updatePetHealth = async (
     )
     res
       .status(StatusCodes.OK)
-      .json({ data: response.rows, success: true })
+      .json(successUpdateResponse(response.rows))
   } catch (error) {
-    console.log(error)
+    console.error(error)
+    res
+      .status(StatusCodes.BAD_GATEWAY)
+      .json(unsucessfulUpdateResponse())
   }
 }
 //hunger
@@ -139,9 +155,12 @@ export const updatePetHunger = async (
     )
     res
       .status(StatusCodes.OK)
-      .json({ data: response.rows, success: true })
+      .json(successUpdateResponse(response.rows))
   } catch (error) {
-    console.log(error)
+    console.error(error)
+    res
+      .status(StatusCodes.BAD_GATEWAY)
+      .json(unsucessfulUpdateResponse())
   }
 }
 //happiness
@@ -162,9 +181,12 @@ export const updatePetHappiness = async (
     )
     res
       .status(StatusCodes.OK)
-      .json({ data: response.rows, success: true })
+      .json(successUpdateResponse(response.rows))
   } catch (error) {
-    console.log(error)
+    console.error(error)
+    res
+      .status(StatusCodes.BAD_REQUEST)
+      .json(unsucessfulUpdateResponse())
   }
 }
 //is_dead
@@ -185,9 +207,12 @@ export const updatePetDeath = async (
     )
     res
       .status(StatusCodes.OK)
-      .json({ data: response.rows, success: true })
+      .json(successUpdateResponse(response.rows))
   } catch (error) {
-    console.log(error)
+    console.error(error)
+    res
+      .status(StatusCodes.BAD_GATEWAY)
+      .json(unsucessfulUpdateResponse())
   }
 }
 
@@ -209,9 +234,12 @@ export const updatePetLeaving = async (
     )
     res
       .status(StatusCodes.OK)
-      .json({ data: response.rows, success: true })
+      .json(successUpdateResponse(response.rows))
   } catch (error) {
-    console.log(error)
+    console.error(error)
+    res
+      .status(StatusCodes.BAD_REQUEST)
+      .json(unsucessfulUpdateResponse())
   }
 }
 
@@ -232,9 +260,12 @@ export const updatePetMood = async (
     )
     res
       .status(StatusCodes.OK)
-      .json({ data: response.rows, success: true })
+      .json(successUpdateResponse(response.rows))
   } catch (error) {
-    console.log(error)
+    console.error(error)
+    res
+      .status(StatusCodes.BAD_REQUEST)
+      .json(unsucessfulUpdateResponse())
   }
 }
 
@@ -248,8 +279,11 @@ export const deletePet = async (
       "DELETE FROM pet WHERE player_uuid = $1 ",
       [player_uuid],
     )
-    res.status(StatusCodes.OK).json({ sucess: true })
+    res.status(StatusCodes.OK).json(sucessfulDeleteResponse())
   } catch (error) {
     console.error(error)
+    res
+      .status(StatusCodes.BAD_REQUEST)
+      .json(unsucessfulDeleteResponse())
   }
 }
