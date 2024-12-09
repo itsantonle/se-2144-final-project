@@ -1,9 +1,24 @@
 import { AnimatedSprite } from "@pixi/react"
 import {Capycorn_Idle} from "../img/Animations"
+// import {Capycorn_Happy} from "../img/Animations"
+// import {Capycorn_Sad} from "../img/Animations"
+
+// if HP >= 81 and Happy > 50 and Hunger > 50
+//   Happy
+
+// else if HP >= 51 and Happy > 50 and Hunger > 50
+//  Idle
+
+// else if HP >= 21
+// Sad
+
+// else2
+// Dead
 
 export type dimensions = { x: number; y: number; s: number }
 
 const CapyChooser = () => {
+
   
 }
 
