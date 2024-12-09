@@ -9,7 +9,7 @@ import {manageHunger} from "../utils/interfaceUtil/hungerBarUtil";
 
 
 let healthBarWidth = 340
-
+// testing
 const maxHealth = 340
 const minHealth = 0
 let happyVal = 80 //should be fetched directly from Db
