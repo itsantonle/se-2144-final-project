@@ -39,5 +39,6 @@ const Capycorn_Idle: Texture[] = fetch(capyIArr)
 // const Capy_Eating: Texture[] = fetch(capyEArr)
 
 export {Hydra_Idle, Capycorn_Idle}
-
+// Hydra_Happy, Hydra_Sad, Hydra_Angry, Hydra_Dead, Hydra_Eating
+// Capy_Happy, Capy_Sad, Capy_Angry, Capy_Dead, Capy_Eating
 
