@@ -4,7 +4,7 @@
   "description": "SE -2141-2142-2143-2144-2145 final project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "lint": "eslint",
     "prettier": "prettier --write \"**/*.{ts,tsx,json,md}\"",
     "prepare": "husky"
@@ -14,14 +14,22 @@
   "license": "ISC",
   "devDependencies": {
     "@eslint/js": "^9.15.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@types/jest": "^29.5.14",
     "eslint": "^9.15.0",
     "eslint-plugin-react": "^7.37.2",
     "globals": "^15.12.0",
     "husky": "^9.1.7",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
     "prettier": "^3.3.3",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
     "typescript-eslint": "^8.15.0"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.62.1"
+    "@tanstack/react-query": "^5.62.1",
+    "jest-environment-jsdom": "^29.7.0"
   }
 }
